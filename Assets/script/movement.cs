@@ -8,10 +8,13 @@ public class movement : MonoBehaviour
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
+
+    private Animator PlayerAnim;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        PlayerAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -21,6 +24,10 @@ public class movement : MonoBehaviour
         float moveY = Input.GetAxisRaw("Vertical");
 
         moveInput = new Vector2(moveX, moveY).normalized;
+
+        PlayerAnim.SetFloat("right", moveX);
+        PlayerAnim.SetFloat("left", moveY);
+        PlayerAnim.SetFloat("Speed", moveInput.sqrMagnitude);
 
     }
 
