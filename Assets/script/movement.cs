@@ -4,22 +4,28 @@ using UnityEngine;
 
 public class movement : MonoBehaviour
 {
-    public float movSpeed;
-    float speedY, speedX;
-    Rigidbody2D rd;
+    [SerializeField] private float speed = 3f;
+
+    private Rigidbody2D rb;
+    private Vector2 moveInput;
     // Start is called before the first frame update
     void Start()
     {
-        rd = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        speedY = Input.GetAxisRaw("Horizontal") * movSpeed;
-        speedX = Input.GetAxisRaw("Vertical") * movSpeed;
-        rd.velocity = new Vector2(speedY, speedX) * Time.deltaTime;
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
 
+        moveInput = new Vector2(moveX, moveY).normalized;
 
+    }
+
+    private void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + moveInput * speed * Time.fixedDeltaTime);
     }
 }
