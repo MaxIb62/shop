@@ -5,12 +5,22 @@ using UnityEngine;
 public class movement : MonoBehaviour
 {
     [SerializeField] private float speed = 3f;
+     public UI_Inventory uiinventory;
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
     private Animator PlayerAnim;
+
+    private inventory Inventory;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        Inventory = new inventory();
+
+        uiinventory.SetInventory(Inventory);
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
