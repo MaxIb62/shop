@@ -5,22 +5,15 @@ using UnityEngine;
 public class movement : MonoBehaviour
 {
     [SerializeField] private float speed = 3f;
-     public UI_Inventory uiinventory;
 
     private Rigidbody2D rb;
     private Vector2 moveInput;
 
+    public GameObject Inventory;
+
     private Animator PlayerAnim;
 
-    private inventory Inventory;
     // Start is called before the first frame update
-
-    private void Awake()
-    {
-        Inventory = new inventory();
-
-        uiinventory.SetInventory(Inventory);
-    }
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -36,8 +29,23 @@ public class movement : MonoBehaviour
         moveInput = new Vector2(moveX, moveY).normalized;
 
         PlayerAnim.SetFloat("right", moveX);
-        PlayerAnim.SetFloat("left", moveY);
         PlayerAnim.SetFloat("Speed", moveInput.sqrMagnitude);
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            if (Inventory != null)
+            {
+                Inventory.SetActive(true);
+            }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            if (Inventory != null)
+            {
+                Inventory.SetActive(false);
+            }
+        }
 
     }
 
